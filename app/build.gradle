@@ -10,6 +10,7 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
 
     buildTypes {
@@ -18,9 +19,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+    packagingOptions {
+        exclude 'LICENSE.txt'
+    }
+    productFlavors {
+    }
 }
 
 dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.newcircle:yamba-client:2.1.0'
+    //Testing-only dependencies
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    androidTestCompile 'com.android.support.test:runner:0.4'
 }
