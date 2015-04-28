@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
@@ -20,6 +21,7 @@ public class StatusUpdateService extends IntentService {
             StatusUpdateService.class.getSimpleName();
 
     public static final String EXTRA_MESSAGE = "message";
+    public static final String EXTRA_LOCATION = "location";
 
     public static final int NOTIFICATION_ID = 43;
 
@@ -40,6 +42,7 @@ public class StatusUpdateService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         //Gather received parameters
         String message = intent.getStringExtra(EXTRA_MESSAGE);
+        Location location = intent.getParcelableExtra(EXTRA_LOCATION);
 
         try {
             SharedPreferences prefs = PreferenceManager
@@ -57,7 +60,12 @@ public class StatusUpdateService extends IntentService {
             postProgressNotification();
 
             YambaClientInterface cloud = YambaClient.getClient(username, password);
-            cloud.postStatus(message);
+            if (location != null) {
+                cloud.postStatus(message,
+                        location.getLatitude(), location.getLongitude());
+            } else {
+                cloud.postStatus(message);
+            }
 
             //Hide progress when completed successfully
             Log.d(TAG, "Successfully posted to the cloud: " + message);

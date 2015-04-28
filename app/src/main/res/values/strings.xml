@@ -18,5 +18,7 @@
     <string name="interval_key">interval</string>
     <string name="interval_summary">How frequently should data refresh?</string>
     <string name="interval">Refresh Interval</string>
+    <string name="location_summary">Send current location with status updates</string>
+    <string name="location">Post Location</string>
 
 </resources>
