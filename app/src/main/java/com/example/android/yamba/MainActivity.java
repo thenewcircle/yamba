@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements
@@ -72,13 +73,21 @@ public class MainActivity extends AppCompatActivity implements
     //Handle list item selections from the timeline
     @Override
     public void onTimelineItemSelected(long id) {
-        // Get the details fragment
-        DetailsFragment fragment = (DetailsFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.fragment_details);
+        // Get the details container
+        View fragmentContainer = findViewById(R.id.fragment_details);
 
-        // Is details fragment visible?
-        if (fragment != null && fragment.isVisible()) {
-            fragment.updateView(id);
+        // Is details container visible?
+        if (fragmentContainer != null) {
+            //Place a new instance on the stack
+            DetailsFragment fragment = DetailsFragment.newInstance(id);
+            getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(android.R.anim.slide_in_left,
+                            android.R.anim.slide_out_right,
+                            android.R.anim.slide_in_left,
+                            android.R.anim.slide_out_right)
+                    .replace(R.id.fragment_details, fragment)
+                    .addToBackStack(null)
+                    .commit();
         } else {
             Intent intent = new Intent(this, DetailsActivity.class);
             intent.putExtra(StatusContract.Column.ID, id);
