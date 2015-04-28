@@ -4,6 +4,8 @@ import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -78,8 +80,12 @@ public class RefreshService extends IntentService {
                 }
             }
 
-            if (count > 0 && !MainActivity.isInTimeline()) {
-                postStatusNotification(count);
+            if (count > 0) {
+                if (!MainActivity.isInTimeline()) {
+                    postStatusNotification(count);
+                }
+
+                postWidgetUpdate();
             }
         } catch (YambaClientException e) {
             Log.e(TAG, "Failed to fetch the timeline", e);
@@ -101,5 +107,17 @@ public class RefreshService extends IntentService {
                 .build();
 
         mNotificationManager.notify(NOTIFICATION_ID, notification);
+    }
+
+    private void postWidgetUpdate() {
+        //Notify the widget provider
+        Intent widgetIntent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+
+        //Get the ids of all active widgets
+        int widgetIds[] = AppWidgetManager.getInstance(this)
+                .getAppWidgetIds(new ComponentName(this, YambaWidget.class));
+
+        widgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, widgetIds);
+        sendBroadcast(widgetIntent);
     }
 }

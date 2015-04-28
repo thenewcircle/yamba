@@ -72,6 +72,16 @@
                     android:name="com.example.android.yamba.action.UPDATED_INTERVAL" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".YambaWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/yamba_widget" />
+        </receiver>
     </application>
 
 </manifest>

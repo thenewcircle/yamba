@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/item_content"
+    android:background="@android:drawable/dialog_holo_dark_frame">
+    <TextView
+        android:id="@+id/text_user"
+        style="@style/TitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        tools:text="Student"/>
+
+    <TextView
+        android:id="@+id/text_created_at"
+        style="@style/SmallText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/text_user"
+        android:layout_alignBottom="@+id/text_user"
+        android:layout_alignParentRight="true"
+        tools:text="1 hour ago"/>
+
+    <TextView
+        android:id="@+id/text_message"
+        style="@style/SmallText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/text_created_at"
+        tools:text="This is a status update from the Yamba API!"/>
+</RelativeLayout>
