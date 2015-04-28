@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 import com.thenewcircle.yamba.client.YambaClient;
@@ -73,8 +74,10 @@ public class StatusUpdateService extends IntentService {
         Intent intent = new Intent(this, StatusActivity.class);
         intent.putExtra(EXTRA_MESSAGE, originalMessage);
 
-        PendingIntent operation = PendingIntent.getActivity(this, 0,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        //This is a deep-link and we need to synthesize the proper activity stack
+        PendingIntent operation = TaskStackBuilder.create(this)
+                .addNextIntentWithParentStack(intent)
+                .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = new NotificationCompat.Builder(this)
                 .setContentTitle("Post Error")
