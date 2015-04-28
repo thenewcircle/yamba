@@ -9,4 +9,7 @@
         android:summary="@string/password_summary"
         android:title="@string/password"
         android:inputType="textPassword" />
+    <com.example.android.yamba.ColorPreference
+        android:key="textColor"
+        android:title="Select Text Color" />
 </PreferenceScreen>

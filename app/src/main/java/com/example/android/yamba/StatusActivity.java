@@ -1,8 +1,10 @@
 package com.example.android.yamba;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -42,6 +44,17 @@ public class StatusActivity extends AppCompatActivity implements
 
         mTextStatus.setText(getIntent()
                 .getStringExtra(StatusUpdateService.EXTRA_MESSAGE));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Update text color from settings
+        SharedPreferences prefs =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        int textColor = prefs.getInt("textColor",
+                getResources().getColor(android.R.color.primary_text_light));
+        mTextStatus.setTextColor(textColor);
     }
 
     @Override
