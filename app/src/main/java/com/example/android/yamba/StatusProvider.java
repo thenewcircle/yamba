@@ -37,6 +37,39 @@ public class StatusProvider extends ContentProvider {
         return null;
     }
 
+    @Override
+    public int bulkInsert(Uri uri, ContentValues[] values) {
+        switch (sURIMatcher.match(uri)) {
+            case StatusContract.STATUS_DIR:
+                SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                int inserted = 0;
+                try {
+                    //Insert all the provided values inside of a transaction
+                    db.beginTransaction();
+
+                    for (ContentValues item : values) {
+                        //If a duplicate id already exists, ignore the insert
+                        long id = db.insertWithOnConflict(StatusContract.TABLE,
+                                null, item, SQLiteDatabase.CONFLICT_IGNORE);
+                        if (id >= 0) {
+                            inserted++;
+                        }
+                    }
+
+                    //Without this, the transaction defaults to failure
+                    db.setTransactionSuccessful();
+
+                    getContext().getContentResolver().notifyChange(uri, null);
+                } finally {
+                    db.endTransaction();
+                }
+
+                return inserted;
+            default:
+                throw new IllegalArgumentException("Illegal uri: " + uri);
+        }
+    }
+
     // SELECT username, message, created_at FROM status WHERE user='bob' ORDER
     // BY created_at DESC;
     @Override

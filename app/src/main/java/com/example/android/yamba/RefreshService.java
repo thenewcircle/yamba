@@ -44,27 +44,27 @@ public class RefreshService extends IntentService {
             YambaClientInterface cloud = YambaClient.getClient(username, password);
             List<YambaStatus> timeline = cloud.getTimeline(20);
 
-            ContentValues values = new ContentValues();
+            //Get the start time
+            long start = System.currentTimeMillis();
+
+            ContentValues[] valuesList = new ContentValues[timeline.size()];
             int count = 0;
-            for (YambaStatus status : timeline) {
-                values.clear();
+            for (int i=0; i < timeline.size(); i++) {
+                final YambaStatus status = timeline.get(i);
+                final ContentValues values = new ContentValues();
                 values.put(StatusContract.Column.ID, status.getId());
                 values.put(StatusContract.Column.USER, status.getUser());
                 values.put(StatusContract.Column.MESSAGE, status.getMessage());
                 values.put(StatusContract.Column.CREATED_AT, status
                         .getCreatedAt().getTime());
 
-                Uri uri = getContentResolver().insert(
-                        StatusContract.CONTENT_URI, values);
-                if (uri != null) {
-                    //Increment count for successful inserts
-                    count++;
-
-                    Log.d(TAG,
-                            String.format("%s: %s", status.getUser(),
-                                    status.getMessage()));
-                }
+                valuesList[i] = values;
             }
+
+            count = getContentResolver()
+                    .bulkInsert(StatusContract.CONTENT_URI, valuesList);
+            Log.v(TAG, "Insert completed in "
+                    + (System.currentTimeMillis() - start) + "ms");
 
             if (count > 0) {
                 postStatusNotification(count);
