@@ -27,9 +27,9 @@ public class StatusActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
 
-        mPostButton = (Button) findViewById(R.id.status_button);
-        mTextStatus = (EditText) findViewById(R.id.status_text);
-        mTextCount = (TextView) findViewById(R.id.status_text_count);
+        mPostButton = findViewById(R.id.status_button);
+        mTextStatus = findViewById(R.id.status_text);
+        mTextCount = findViewById(R.id.status_text_count);
 
         mPostButton.setOnClickListener(this);
         mTextStatus.addTextChangedListener(this);
@@ -79,7 +79,7 @@ public class StatusActivity extends AppCompatActivity implements
     @Override
     public void afterTextChanged(Editable s) {
         int count = 140 - s.length();
-        mTextCount.setText(Integer.toString(count));
+        mTextCount.setText(String.valueOf(count));
 
         if (count < 10) {
             mTextCount.setTextColor(Color.RED);
