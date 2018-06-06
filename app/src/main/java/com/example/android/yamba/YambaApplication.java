@@ -7,6 +7,7 @@ import android.os.Build;
 
 public class YambaApplication extends Application {
     public final static String POST_PROGRESS_CHANNEL_ID = "POST_PROGRESS_CHANNEL_ID";
+    public final static String REFRESH_NOTIFICATION_CHANNEL_ID = "REFRESH_NOTIFICATION_CHANNEL_ID";
 
     @Override
     public void onCreate() {
@@ -27,6 +28,13 @@ public class YambaApplication extends Application {
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+            name = getString(R.string.channel_refresh);
+            description = getString(R.string.channel_refresh_description);
+            importance = NotificationManager.IMPORTANCE_DEFAULT;
+            channel = new NotificationChannel(REFRESH_NOTIFICATION_CHANNEL_ID, name, importance);
+            channel.setDescription(description);
             notificationManager.createNotificationChannel(channel);
         }
     }
