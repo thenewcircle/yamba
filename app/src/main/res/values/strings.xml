@@ -15,5 +15,9 @@
     <string name="password_key">password</string>
     <string name="password_summary">How do you log in?</string>
     <string name="password">Password</string>
+    <string name="channel_post_progress">Post Yamba Progress</string>
+    <string name="channel_post_progress_description">This notification group is for show Yamba post progress</string>
+    <string name="channel_refresh">Yamba Refresh</string>
+    <string name="channel_refresh_description">This notification group is for show Yamba refresh progress</string>
 
 </resources>
