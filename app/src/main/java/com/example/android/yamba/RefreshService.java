@@ -92,7 +92,8 @@ public class RefreshService extends IntentService {
         PendingIntent operation = PendingIntent.getActivity(this, 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification notification = new NotificationCompat.Builder(this)
+        Notification notification = new NotificationCompat
+                .Builder(this, YambaApplication.POST_PROGRESS_CHANNEL_ID)
                 .setContentTitle("New tweets!")
                 .setContentText("You've got " + count + " new tweets")
                 .setSmallIcon(android.R.drawable.sym_action_email)
