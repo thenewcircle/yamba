@@ -18,5 +18,9 @@
     <string name="interval_key">interval</string>
     <string name="interval_summary">How frequently should data refresh?</string>
     <string name="interval">Refresh Interval</string>
+    <string name="channel_post_progress">Post Yamba Progress</string>
+    <string name="channel_post_progress_description">This notification group is for show Yamba post progress</string>
+    <string name="channel_refresh">Yamba Refresh</string>
+    <string name="channel_refresh_description">This notification group is for show Yamba refresh progress</string>
 
 </resources>

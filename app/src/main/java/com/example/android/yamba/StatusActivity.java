@@ -6,13 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class StatusActivity extends AppCompatActivity implements
@@ -31,9 +28,9 @@ public class StatusActivity extends AppCompatActivity implements
 
         setContentView(R.layout.activity_status);
 
-        mPostButton = (Button) findViewById(R.id.status_button);
-        mTextStatus = (EditText) findViewById(R.id.status_text);
-        mTextCount = (TextView) findViewById(R.id.status_text_count);
+        mPostButton = findViewById(R.id.status_button);
+        mTextStatus = findViewById(R.id.status_text);
+        mTextCount = findViewById(R.id.status_text_count);
 
         mPostButton.setOnClickListener(this);
         mTextStatus.addTextChangedListener(this);
@@ -71,7 +68,7 @@ public class StatusActivity extends AppCompatActivity implements
     @Override
     public void afterTextChanged(Editable s) {
         int count = 140 - s.length();
-        mTextCount.setText(Integer.toString(count));
+        mTextCount.setText(String.valueOf(count));
 
         if (count < 10) {
             mTextCount.setTextColor(Color.RED);
