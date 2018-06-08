@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.yamba" >
+          package="com.example.android.yamba">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
+        android:name=".YambaApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".MainActivity" >
+
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
@@ -22,7 +24,7 @@
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.yamba.MainActivity" />
+                android:value="com.example.android.yamba.MainActivity"/>
         </activity>
         <activity
             android:name=".DetailsActivity"
@@ -35,16 +37,16 @@
 
         <service
             android:name=".StatusUpdateService"
-            android:exported="false" />
+            android:exported="false"/>
         <service
             android:name=".RefreshService"
-            android:exported="false" />
+            android:exported="false"/>
 
         <provider
             android:name=".StatusProvider"
             android:authorities="com.example.android.yamba.StatusProvider"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false">
         </provider>
     </application>
 
