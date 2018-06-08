@@ -60,7 +60,8 @@ public class StatusUpdateService extends IntentService {
     }
 
     private void postProgressNotification() {
-        Notification notification = new NotificationCompat.Builder(this)
+        Notification notification = new NotificationCompat
+                .Builder(this, YambaApplication.POST_PROGRESS_CHANNEL_ID)
                 .setContentTitle("Posting Status")
                 .setContentText("Status update in progress...")
                 .setSmallIcon(android.R.drawable.sym_action_email)
@@ -79,7 +80,8 @@ public class StatusUpdateService extends IntentService {
                 .addNextIntentWithParentStack(intent)
                 .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification notification = new NotificationCompat.Builder(this)
+        Notification notification = new NotificationCompat
+                .Builder(this, YambaApplication.POST_PROGRESS_CHANNEL_ID)
                 .setContentTitle("Post Error")
                 .setContentText("Error posting status update. Tap to try again.")
                 .setSmallIcon(android.R.drawable.sym_action_email)
