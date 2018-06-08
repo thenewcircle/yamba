@@ -72,10 +72,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
-            <intent-filter>
-                <action
-                    android:name="com.example.android.yamba.action.UPDATED_INTERVAL"/>
-            </intent-filter>
         </receiver>
     </application>
 

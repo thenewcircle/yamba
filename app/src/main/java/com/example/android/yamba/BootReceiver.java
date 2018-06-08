@@ -21,18 +21,9 @@ public class BootReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-                && Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            //We don't need to respond to this event with JobScheduler
-            Log.v(TAG, "Ignoring boot completed on Lollipop");
-            return;
-        }
-
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(context);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         long interval = Long.parseLong(
-                prefs.getString(context.getString(R.string.interval_key),
-                Long.toString(DEFAULT_INTERVAL)));
+                prefs.getString(context.getString(R.string.interval_key), Long.toString(DEFAULT_INTERVAL)));
 
         PendingIntent operation = PendingIntent.getService(context, -1,
                 new Intent(context, RefreshService.class),
@@ -54,7 +45,7 @@ public class BootReceiver extends BroadcastReceiver {
                                 ScheduledJobService.class.getName()))
                         //Let the framework reschedule our job on device reboots
                         .setPersisted(true)
-                                //Set the trigger interval
+                        //Set the trigger interval
                         .setPeriodic(interval)
                         .build();
 

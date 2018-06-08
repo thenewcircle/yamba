@@ -3,6 +3,7 @@ package com.example.android.yamba;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.IntentFilter;
 import android.os.Build;
 
 public class YambaApplication extends Application {
@@ -13,6 +14,10 @@ public class YambaApplication extends Application {
     public void onCreate() {
         super.onCreate();
         createNotificationChannel();
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.example.android.yamba.action.UPDATED_INTERVAL");
+        registerReceiver(new BootReceiver(), filter);
     }
 
     private void createNotificationChannel() {

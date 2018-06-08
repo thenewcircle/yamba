@@ -21,12 +21,9 @@ import com.thenewcircle.yamba.client.YambaStatus;
 import java.util.List;
 
 public class RefreshService extends IntentService {
-    private static final String TAG =
-            RefreshService.class.getSimpleName();
+    private static final String TAG = RefreshService.class.getSimpleName();
 
     public static final int NOTIFICATION_ID = 42;
-
-    private NotificationManager mNotificationManager;
 
     public RefreshService() {
         super(TAG);
@@ -35,15 +32,12 @@ public class RefreshService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        mNotificationManager =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
         try {
-            SharedPreferences prefs = PreferenceManager
-                    .getDefaultSharedPreferences(this);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
             final String username = prefs.getString(getString(R.string.username_key), "");
             final String password = prefs.getString(getString(R.string.password_key), "");
 
@@ -101,6 +95,11 @@ public class RefreshService extends IntentService {
                 .setAutoCancel(true)
                 .build();
 
-        mNotificationManager.notify(NOTIFICATION_ID, notification);
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        if (notificationManager != null) {
+            notificationManager.notify(NOTIFICATION_ID, notification);
+        }
     }
 }
