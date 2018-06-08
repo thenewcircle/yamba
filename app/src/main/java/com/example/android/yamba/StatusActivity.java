@@ -3,7 +3,6 @@ package com.example.android.yamba;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
-public class StatusActivity extends AppCompatActivity implements
+public class StatusActivity extends YambaBaseActivity implements
         View.OnClickListener, TextWatcher {
     private int mDefaultColor;
 
@@ -21,8 +20,7 @@ public class StatusActivity extends AppCompatActivity implements
     private TextView mTextCount;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreated(Bundle savedInstanceState) {
         //Action bar stuff
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
